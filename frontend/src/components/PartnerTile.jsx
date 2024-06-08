@@ -25,10 +25,11 @@ function PartnerTile({ partnerData }) {
 
   return (
     <div className="partner-tile">
-      <img className="partner-thumbnail" src='' />
+      {partnerData.name}
+      <img className="partner-thumbnail" src={partnerData.thumbnailUrl} />
       <hr />
       <div className="partner-info">
-        This is some placeholder content - you'll need to replace the content here with actual partner information. 
+        {partnerData.description}
       </div>
       <DeleteButton onClick={handleDeleteClick}/>
     </div>
