@@ -15,13 +15,16 @@ function Dashboard() {
       method: 'GET',
     })
     .then((res) => res.json())
+    .then(data => setPartners(data));
   }, [])
 
   return (
     <div id="main-content">
       <div id="main-partners-grid">
-        <PartnerTile partnerData={{}} />
-      </div>
+          {Object.keys(partners).map(partnerId => (
+            <PartnerTile key={partnerId} partnerData={partners[partnerId]} />
+          ))}      
+        </div>
     </div>
   )
 }
