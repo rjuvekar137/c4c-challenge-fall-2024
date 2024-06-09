@@ -44,12 +44,22 @@ function UserAddition({ onAddPartner }) {
       </div>
       <div>
         <label>Description:</label>
-        <textarea
+         <textarea
           name='description'
           value={newPartner.description}
           onChange={handleChange}
           required
         />
+      </div>
+      <div>
+        <label>
+          Active?
+          <input
+            type='checkbox'
+            checked={isActive}
+            onChange={(e) => setIsActive(e.target.checked)}
+          />
+        </label>
       </div>
       <button type='submit'>Add Partner</button>
     </form>
