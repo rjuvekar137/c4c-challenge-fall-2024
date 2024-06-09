@@ -7,7 +7,7 @@ function Dashboard() {
   const [isAddingPartner, setIsAddingPartner] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:4000', {
+    fetch('http://localhost:4000/partners', {
       method: 'GET',
     })
       .then((res) => res.json())

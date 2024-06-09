@@ -1,23 +1,33 @@
 import express from 'express';
+import fs from "fs";
+import path from "path";
 
 const app = express();
 const port = 4000;
 
-// Some partner data
-const partners = {
-  "sftt": {
-    "thumbnailUrl": "https://c4cneu-public.s3.us-east-2.amazonaws.com/Site/sfft-project-page.png",
-    "name": "Speak For The Trees",
-    "description": "Speak for the Trees Boston aims to improve the size and health of the urban forest in the greater Boston area, with a focus on under-served and under-canopied neighborhoods. They work with volunteers to inventory (collect data) trees, plant trees, and educate those about trees. C4C has built a tree stewardship application for SFTT that allows users to participate in conserving Boston's urban forest. Across Boston, hundreds of trees have been adopted and cared for.",
-    "active": true
-  },
-  "test": {
-    "thumbnailUrl": "https://c4cneu-public.s3.us-east-2.amazonaws.com/Site/sfft-project-page.png",
-    "name": "Test Partner",
-    "description": "This is a test partner.",
-    "active": true
-  }
-};
+// partner data in JSON format
+var partners = readPartners();
+
+function readPartners() {
+  fs.readFile("backend/data/partners.json", "utf8", (error, data) => {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    partners = data;
+    console.log('Partners read from disk.')
+  });
+}
+
+function writePartners() {
+  fs.writeFile("backend/data/partners.json", JSON.stringify(partners), (error) => {
+    if (error) {
+      cconsole.log('An error has occurred ', error);
+      return;
+    }
+    console.log('Partners saved to disk.');
+  })
+}
 
 /* 
   APPLICATION MIDDLEWARE
@@ -42,6 +52,31 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   res.status(200).send(partners);
+});
+
+// add a partner
+app.post('/partners', (req, res) => {
+  // logic to add a partner
+});
+
+// get all partners
+app.get('/partners', (req, res) => {
+  res.status(200).send(partners);
+});
+
+// get a single partner by id
+app.get('/partners/:id', (req, res) => {
+  // logic to get a single partner
+});
+
+// update a partner
+app.put('/partners/:id', (req, res) => {
+  // logic to update a partner
+});
+
+// delete a partner
+app.delete('/partners/:id', (req, res) => {
+  // logic to delete a partner
 });
 
 // Start the backend
