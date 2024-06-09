@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
-import PartnerTile from './PartnerTile';
+import PartnerList from './PartnerList';
 import UserAddition from './UserAddition';
 
-/*
-  The top-level component containing everything relevant to the dashboard,
-  including information on each partner
-*/
 function Dashboard() {
   const [partners, setPartners] = useState({});
   const [isAddingPartner, setIsAddingPartner] = useState(false);
@@ -22,7 +18,7 @@ function Dashboard() {
   const addPartner = (newPartner) => {
     setPartners((prevPartners) => ({
       ...prevPartners,
-      [newPartner.name]: newPartner
+      [newPartner.name]: { ...newPartner, active: true }
     }));
     setIsAddingPartner(false); // Hide the form panel after adding the partner
   };
@@ -39,11 +35,7 @@ function Dashboard() {
         </button>
         {isAddingPartner && <UserAddition onAddPartner={addPartner} />}
       </div>
-      <div id="main-partners-grid">
-        {Object.keys(partners).map(partnerId => (
-          <PartnerTile key={partnerId} partnerData={partners[partnerId]} />
-        ))}      
-      </div>
+      <PartnerList partners={partners} setPartners={setPartners} />
     </div>
   );
 }

@@ -1,60 +1,58 @@
 import React, { useState } from 'react';
 
-/*
-  Contains the layout for how adding a user input looks
-*/
-
 function UserAddition({ onAddPartner }) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [thumbnailUrl, setThumbnailUrl] = useState('');
-  const [isActive, setIsActive] = useState(false);
+  const [newPartner, setNewPartner] = useState({
+    name: '',
+    thumbnailUrl: '',
+    description: ''
+  });
 
-  const handleAddInfoClick = () => {
-    const newPartner = {
-      name,
-      description,
-      thumbnailUrl,
-      isActive,
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewPartner(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     onAddPartner(newPartner);
-    setName('');
-    setDescription('');
-    setThumbnailUrl('');
-    setIsActive(false);
   };
 
   return (
-    <div className='add-info-panel'>
-      <input
-        type='text'
-        placeholder='Partner Name'
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <textarea
-        placeholder='Partner Description'
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        type='text'
-        placeholder='Partner Logo URL'
-        value={thumbnailUrl}
-        onChange={(e) => setThumbnailUrl(e.target.value)}
-      />
-      <label>
-        Active:
+    <form onSubmit={handleSubmit} className='add-info-panel'>
+      <div>
+        <label>Name:</label>
         <input
-          type='checkbox'
-          checked={isActive}
-          onChange={(e) => setIsActive(e.target.checked)}
+          type='text'
+          name='name'
+          value={newPartner.name}
+          onChange={handleChange}
+          required
         />
-      </label>
-      <button className='add-partner-info-btn' onClick={handleAddInfoClick}>
-        Add Partner Info
-      </button>
-    </div>
+      </div>
+      <div>
+        <label>Thumbnail URL:</label>
+        <input
+          type='text'
+          name='thumbnailUrl'
+          value={newPartner.thumbnailUrl}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Description:</label>
+        <textarea
+          name='description'
+          value={newPartner.description}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <button type='submit'>Add Partner</button>
+    </form>
   );
 }
 
