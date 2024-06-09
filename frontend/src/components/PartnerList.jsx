@@ -2,24 +2,24 @@ import React from 'react';
 import PartnerTile from './PartnerTile';
 
 const PartnerList = ({ partners, setPartners }) => {
-  const deletePartner = (partnerId) => {
-    setPartners((prevPartners) => ({
+  const deletePartner = (name) => {
+    setPartners(prevPartners => ({
       ...prevPartners,
-      [partnerId]: { ...prevPartners[partnerId], active: false }
+      [name]: { ...prevPartners[name], active: false }
     }));
   };
 
   return (
-    <div id="main-partners-grid">
-      {Object.keys(partners).map(partnerId => (
-        partners[partnerId].active && (
+    <div>
+      {Object.keys(partners)
+        .filter(key => partners[key].active)
+        .map(key => (
           <PartnerTile
-            key={partnerId}
-            partnerData={partners[partnerId]}
-            onDelete={() => deletePartner(partnerId)}
+            key={key}
+            partnerData={partners[key]}
+            onDelete={() => deletePartner(key)}
           />
-        )
-      ))}
+        ))}
     </div>
   );
 };

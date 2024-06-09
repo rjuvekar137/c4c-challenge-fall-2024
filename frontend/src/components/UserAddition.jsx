@@ -4,7 +4,8 @@ function UserAddition({ onAddPartner }) {
   const [newPartner, setNewPartner] = useState({
     name: '',
     thumbnailUrl: '',
-    description: ''
+    description: '',
+    active: false
   });
 
   const handleChange = (e) => {
@@ -12,6 +13,14 @@ function UserAddition({ onAddPartner }) {
     setNewPartner(prevState => ({
       ...prevState,
       [name]: value
+    }));
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setNewPartner(prevState => ({
+      ...prevState,
+      active: checked
     }));
   };
 
@@ -52,14 +61,13 @@ function UserAddition({ onAddPartner }) {
         />
       </div>
       <div>
-        <label>
-          Active?
+        <label>Active?</label>
           <input
             type='checkbox'
-            checked={isActive}
-            onChange={(e) => setIsActive(e.target.checked)}
+            name='active'
+            checked={newPartner.active}
+            onChange={handleCheckboxChange}
           />
-        </label>
       </div>
       <button type='submit'>Add Partner</button>
     </form>

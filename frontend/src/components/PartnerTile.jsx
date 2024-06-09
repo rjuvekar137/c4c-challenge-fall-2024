@@ -18,14 +18,14 @@ function PartnerTile({ partnerData, onDelete }) {
 
   return (
     <div className="partner-tile">
-      {partnerData.name}
+      <h3>{partnerData.name}</h3>
       <img className="partner-thumbnail" src={partnerData.thumbnailUrl} alt={partnerData.name} />
       <hr />
       <div className="partner-info">
         {partnerData.description}
       </div>
       <div className='partner-delete'>
-        <DeleteButton onClick={handleDeleteClick}/>
+        <DeleteButton onClick={handleDeleteClick} />
       </div>
     </div>
   );
