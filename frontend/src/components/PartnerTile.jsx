@@ -5,7 +5,7 @@ function DeleteButton({ onClick }) {
     <button className="delete-button" onClick={onClick}>
       Delete Partner
     </button>
-  );
+  ); 
 }
 
 function PartnerTile({ partnerData, onDelete }) {
@@ -24,8 +24,8 @@ function PartnerTile({ partnerData, onDelete }) {
       <div className="partner-info">
         {partnerData.description}
       </div>
-      <div className="partner-status">
-        {partnerData.active ? 'Active' : 'Inactive'}
+      <div className='partner-status'>
+        <strong>Status: </strong> {partnerData.active ? 'Active' : 'Inactive'}
       </div>
       <div className='partner-delete'>
         <DeleteButton onClick={handleDeleteClick} />

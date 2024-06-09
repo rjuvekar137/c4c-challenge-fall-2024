@@ -5,7 +5,7 @@ function UserAddition({ onAddPartner }) {
     name: '',
     thumbnailUrl: '',
     description: '',
-    active: false
+    active: false,
   });
 
   const handleChange = (e) => {
@@ -17,10 +17,9 @@ function UserAddition({ onAddPartner }) {
   };
 
   const handleCheckboxChange = (e) => {
-    const { checked } = e.target;
     setNewPartner(prevState => ({
       ...prevState,
-      active: checked
+      active: e.target.checked
     }));
   };
 

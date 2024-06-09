@@ -6,21 +6,20 @@ function Dashboard() {
   const [partners, setPartners] = useState({});
   const [isAddingPartner, setIsAddingPartner] = useState(false);
 
-  // Load all partners on initial page load 
   useEffect(() => {
     fetch('http://localhost:4000', {
       method: 'GET',
     })
-    .then((res) => res.json())
-    .then(data => setPartners(data));
+      .then((res) => res.json())
+      .then(data => setPartners(data));
   }, []);
 
   const addPartner = (newPartner) => {
     setPartners((prevPartners) => ({
       ...prevPartners,
-      [newPartner.name]: { ...newPartner, active: true }
+      [newPartner.name]: newPartner
     }));
-    setIsAddingPartner(false); // Hide the form panel after adding the partner
+    setIsAddingPartner(false);
   };
 
   const toggleAddPartnerPanel = () => {

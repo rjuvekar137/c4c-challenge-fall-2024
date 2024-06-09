@@ -3,23 +3,24 @@ import PartnerTile from './PartnerTile';
 
 const PartnerList = ({ partners, setPartners }) => {
   const deletePartner = (name) => {
-    setPartners(prevPartners => ({
+    setPartners((prevPartners) => ({
       ...prevPartners,
-      [name]: { ...prevPartners[name], active: false }
+      [name]: {
+        ...prevPartners[name],
+        active: false
+      }
     }));
   };
 
   return (
     <div>
-      {Object.keys(partners)
-        .filter(key => partners[key].active)
-        .map(key => (
-          <PartnerTile
-            key={key}
-            partnerData={partners[key]}
-            onDelete={() => deletePartner(key)}
-          />
-        ))}
+      {Object.values(partners).map(partner => (
+        <PartnerTile
+          key={partner.name}
+          partnerData={partner}
+          onDelete={() => deletePartner(partner.name)}
+        />
+      ))}
     </div>
   );
 };
