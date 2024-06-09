@@ -31,7 +31,9 @@ function PartnerTile({ partnerData }) {
       <div className="partner-info">
         {partnerData.description}
       </div>
-      <DeleteButton onClick={handleDeleteClick}/>
+      <div className='partner-delete'>
+        <DeleteButton onClick={handleDeleteClick}/>
+      </div>
     </div>
   )
 }
