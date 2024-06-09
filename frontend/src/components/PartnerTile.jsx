@@ -24,6 +24,9 @@ function PartnerTile({ partnerData, onDelete }) {
       <div className="partner-info">
         {partnerData.description}
       </div>
+      <div className="partner-status">
+        {partnerData.active ? 'Active' : 'Inactive'}
+      </div>
       <div className='partner-delete'>
         <DeleteButton onClick={handleDeleteClick} />
       </div>
