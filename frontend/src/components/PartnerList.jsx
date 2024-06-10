@@ -22,6 +22,29 @@ const PartnerList = ({ partners, setPartners }) => {
     }
   };
 
+  const editPartner = async (id, updatedPartner) => {
+    try {
+      const response = await fetch(`http://localhost:4000/partners/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedPartner),
+      });
+
+      if (response.ok) {
+        setPartners((prevPartners) => ({
+          ...prevPartners,
+          [id]: updatedPartner,
+        }));
+      } else {
+        console.error('Failed to update partner');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <div className='partner-list'>
       {Object.entries(partners).map(([id, partner]) => (
@@ -30,6 +53,7 @@ const PartnerList = ({ partners, setPartners }) => {
           partnerId={id}
           partnerData={partner}
           onDelete={() => deletePartner(id)}
+          onEdit={editPartner}
         />
       ))}
     </div>

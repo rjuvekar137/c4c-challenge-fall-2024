@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import EditPartnerForm from './EditPartnerForm';
 
 function DeleteButton({ onClick }) {
   return (
@@ -16,7 +17,9 @@ function EditButton({ onClick }) {
   ); 
 }
 
-function PartnerTile({ partnerId, partnerData, onDelete }) {
+function PartnerTile({ partnerId, partnerData, onDelete, onEdit }) {
+  const [isEditing, setIsEditing] = useState(false);
+
   const handleDeleteClick = () => {
     const confirmed = window.confirm('Are you sure you want to delete this partner?');
     if (confirmed) {
@@ -25,26 +28,45 @@ function PartnerTile({ partnerId, partnerData, onDelete }) {
   };
 
   const handleEditClick = () => {
-    // Edit functionality can be implemented here
+    setIsEditing(true);
+  };
+
+  const handleSaveClick = (updatedPartner) => {
+    onEdit(partnerId, updatedPartner);
+    setIsEditing(false);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
   };
 
   return (
     <div className="partner-tile">
-      <h3>{partnerData.name}</h3>
-      <img className="partner-thumbnail" src={partnerData.thumbnailUrl} alt={partnerData.name} />
-      <hr />
-      <div className="partner-info">
-        {partnerData.description}
-      </div>
-      <div className='partner-status'>
-        <strong>Status: </strong> {partnerData.active ? 'Active' : 'Inactive'}
-      </div>
-      <div className='partner-delete'>
-        <DeleteButton onClick={handleDeleteClick} />
-      </div>
-      <div className='partner-edit'>
-        <EditButton onClick={handleEditClick}/>
-      </div>
+      {isEditing ? (
+        <EditPartnerForm
+          partnerData={partnerData}
+          onSave={handleSaveClick}
+          onCancel={handleCancelClick}
+        />
+      ) : (
+        <>
+          <h3>{partnerData.name}</h3>
+          <img className="partner-thumbnail" src={partnerData.thumbnailUrl} alt={partnerData.name} />
+          <hr />
+          <div className="partner-info">
+            {partnerData.description}
+          </div>
+          <div className='partner-status'>
+            <strong>Status: </strong> {partnerData.active ? 'Active' : 'Inactive'}
+          </div>
+          <div className='partner-delete'>
+            <DeleteButton onClick={handleDeleteClick} />
+          </div>
+          <div className='partner-edit'>
+            <EditButton onClick={handleEditClick}/>
+          </div>
+        </>
+      )}
     </div>
   );
 }
