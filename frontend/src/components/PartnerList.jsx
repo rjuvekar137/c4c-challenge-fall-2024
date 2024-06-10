@@ -13,13 +13,14 @@ const PartnerList = ({ partners, setPartners }) => {
   };
 
   return (
-    <div>
+    <div className='partner-list'>
       {Object.values(partners).map(partner => (
-        <PartnerTile
-          key={partner.name}
-          partnerData={partner}
-          onDelete={() => deletePartner(partner.name)}
-        />
+        <div className="partner-tile-wrapper" key={partner.name}>
+          <PartnerTile
+            partnerData={partner}
+            onDelete={() => deletePartner(partner.name)}
+          />
+        </div>
       ))}
     </div>
   );

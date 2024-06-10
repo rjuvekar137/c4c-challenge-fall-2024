@@ -50,10 +50,6 @@ app.use((req, res, next) => {
   APPLICATION ROUTES
 */
 
-app.get('/', (req, res) => {
-  res.status(200).send(partners);
-});
-
 // add a partner
 app.post('/partners', (req, res) => {
   // logic to add a partner
