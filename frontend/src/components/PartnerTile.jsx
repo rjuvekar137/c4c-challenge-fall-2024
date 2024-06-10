@@ -16,7 +16,7 @@ function EditButton({ onClick }) {
   ); 
 }
 
-function PartnerTile({ partnerData, onDelete }) {
+function PartnerTile({ partnerId, partnerData, onDelete }) {
   const handleDeleteClick = () => {
     const confirmed = window.confirm('Are you sure you want to delete this partner?');
     if (confirmed) {
@@ -25,7 +25,7 @@ function PartnerTile({ partnerData, onDelete }) {
   };
 
   const handleEditClick = () => {
-    onEdit(partnerData);
+    // Edit functionality can be implemented here
   };
 
   return (
@@ -39,8 +39,10 @@ function PartnerTile({ partnerData, onDelete }) {
       <div className='partner-status'>
         <strong>Status: </strong> {partnerData.active ? 'Active' : 'Inactive'}
       </div>
-      <div className='partner-btns'>
+      <div className='partner-delete'>
         <DeleteButton onClick={handleDeleteClick} />
+      </div>
+      <div className='partner-edit'>
         <EditButton onClick={handleEditClick}/>
       </div>
     </div>

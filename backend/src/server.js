@@ -14,19 +14,35 @@ function readPartners() {
       console.log(error);
       return;
     }
-    partners = data;
+    partners = JSON.parse(data);
     console.log('Partners read from disk.')
   });
 }
 
 function writePartners() {
-  fs.writeFile("backend/data/partners.json", JSON.stringify(partners), (error) => {
+  fs.writeFile("backend/data/partners.json", JSON.stringify(partners, null, 4), (error) => {
     if (error) {
       cconsole.log('An error has occurred ', error);
       return;
     }
     console.log('Partners saved to disk.');
   })
+}
+
+function generateUUID() { // Public Domain/MIT
+  var d = new Date().getTime();//Timestamp
+  var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16;//random number between 0 and 16
+      if(d > 0){//Use timestamp until depleted
+          r = (d + r)%16 | 0;
+          d = Math.floor(d/16);
+      } else {//Use microseconds since page-load if supported
+          r = (d2 + r)%16 | 0;
+          d2 = Math.floor(d2/16);
+      }
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
 }
 
 /* 
@@ -50,9 +66,23 @@ app.use((req, res, next) => {
   APPLICATION ROUTES
 */
 
+app.get('/', (req, res) => {
+  res.status(200).send(partners);
+});
+
 // add a partner
 app.post('/partners', (req, res) => {
-  // logic to add a partner
+  const {thumbnailUrl, name, description, active} = req.body;
+  if (!name || !thumbnailUrl || !description || !active) {
+    return res.status(400).send('Missing information for partner');
+  }
+
+  const id = generateUUID();
+  const newPartner = {thumbnailUrl, name, description, active};
+  partners[id] = newPartner;
+  writePartners()
+  console.log("Added new partner: "+id)
+  res.status(201).send(newPartner);
 });
 
 // get all partners
@@ -62,17 +92,38 @@ app.get('/partners', (req, res) => {
 
 // get a single partner by id
 app.get('/partners/:id', (req, res) => {
-  // logic to get a single partner
+  var id = req.params.id
+  if ( !partners[id] ) {
+    return res.status(400).send('Partner not found: '+id);
+  }
+  res.status(200).send(partners[id]);
 });
 
 // update a partner
 app.put('/partners/:id', (req, res) => {
-  // logic to update a partner
+  var id = req.params.id
+  if ( !partners[id] ) {
+    return res.status(400).send('Partner not found: '+id);
+  }
+  const {thumbnailUrl, name, description, active} = req.body;
+  if (!name || !thumbnailUrl || !description || !active) {
+    return res.status(400).send('Missing information for partner');
+  }
+  const newPartner = {thumbnailUrl, name, description, active};
+  partners[id] = newPartner;
+  writePartners()
+  console.log("Updated partner: "+id)
+  res.status(200).send(newPartner);
 });
 
 // delete a partner
 app.delete('/partners/:id', (req, res) => {
-  // logic to delete a partner
+  var id = req.params.id
+  partners[id] = null
+  delete partners[id]
+  writePartners()
+  console.log('Deleted partner: '+id)
+  res.status(204).send(partners);
 });
 
 // Start the backend
