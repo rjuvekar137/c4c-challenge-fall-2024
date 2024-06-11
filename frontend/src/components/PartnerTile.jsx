@@ -34,14 +34,14 @@ function PartnerTile({ partnerData, onDelete, onEdit }) {
         />
       ) : (
         <>
-          <h3>{partnerData.name}</h3>
           <img className="partner-thumbnail" src={partnerData.thumbnailUrl} alt={partnerData.name} />
+          <h3>{partnerData.name}</h3>
+          <div className={`partner-status ${partnerData.active ? 'active' : 'inactive'}`}>
+            {partnerData.active ? 'Active' : 'Inactive'}
+          </div>
           <hr />
           <div className="partner-info">
             {partnerData.description}
-          </div>
-          <div className='partner-status'>
-            <strong>Status: </strong> {partnerData.active ? 'Active' : 'Inactive'}
           </div>
           <div className='partner-actions'>
             <div className='form-row'>
