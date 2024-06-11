@@ -25,46 +25,53 @@ function EditPartnerForm({ partnerData, onSave, onCancel }) {
 
   return (
     <form onSubmit={handleSubmit} className='edit-partner-form'>
-      <div>
-        <label>Name:</label>
-        <input
-          type='text'
-          name='name'
-          value={updatedPartner.name}
-          onChange={handleChange}
-          required
-        />
+      <div className='form-row'>
+        <div className='form-group'>
+          <label className='form-label'>Name:</label>
+          <input
+            type='text'
+            name='name'
+            value={updatedPartner.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className='form-group'>
+          <label className='form-label'>Thumbnail URL:</label>
+          <input
+            type='text'
+            name='thumbnailUrl'
+            value={updatedPartner.thumbnailUrl}
+            onChange={handleChange}
+            required
+          />
+        </div>
       </div>
-      <div>
-        <label>Thumbnail URL:</label>
-        <input
-          type='text'
-          name='thumbnailUrl'
-          value={updatedPartner.thumbnailUrl}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Description:</label>
-         <textarea
-          name='description'
-          value={updatedPartner.description}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Active?</label>
+      <div className='form-row'>
+        <div className='form-group'>
+          <label className='form-label'>Description:</label>
+          <input
+            type='text'
+            name='description'
+            value={updatedPartner.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className='form-group'>
+          <label className='form-label'>Active?</label>
           <input
             type='checkbox'
             name='active'
             checked={updatedPartner.active}
             onChange={handleCheckboxChange}
           />
+        </div>
       </div>
-      <button type='submit'>Save Changes</button>
-      <button type='button' onClick={onCancel}>Cancel</button>
+      <div className='form-row'>
+        <button className='save-changes-btn' type='submit'>Save Changes</button>
+        <button className='cancel-btn' type='button' onClick={onCancel}>Cancel</button>
+      </div>
     </form>
   );
 }

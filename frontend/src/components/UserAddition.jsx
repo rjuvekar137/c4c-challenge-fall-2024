@@ -30,8 +30,9 @@ function UserAddition({ onAddPartner }) {
 
   return (
     <form onSubmit={handleSubmit} className='add-info-panel'>
-      <div>
-        <label>Name:</label>
+      <div className='form-row'>
+      <div className='form-group'>
+      <label className='form-label'>Name:</label>
         <input
           type='text'
           name='name'
@@ -40,8 +41,8 @@ function UserAddition({ onAddPartner }) {
           required
         />
       </div>
-      <div>
-        <label>Thumbnail URL:</label>
+      <div className='form-group'>
+      <label className='form-label'>Thumbnail URL:</label>
         <input
           type='text'
           name='thumbnailUrl'
@@ -50,17 +51,19 @@ function UserAddition({ onAddPartner }) {
           required
         />
       </div>
-      <div>
-        <label>Description:</label>
-         <textarea
+      </div>
+      <div className='form-row'>
+      <div className='form-group'>
+      <label className='form-label'>Description:</label>
+         <input
           name='description'
           value={newPartner.description}
           onChange={handleChange}
           required
         />
       </div>
-      <div>
-        <label>Active?</label>
+      <div className='form-group'>
+      <label className='form-label'>Active?</label>
           <input
             type='checkbox'
             name='active'
@@ -68,7 +71,8 @@ function UserAddition({ onAddPartner }) {
             onChange={handleCheckboxChange}
           />
       </div>
-      <button type='submit'>Add Partner</button>
+      </div>
+      <button className='add-partner-info-btn' type='submit'>Add Partner</button>
     </form>
   );
 }

@@ -1,29 +1,13 @@
 import React, { useState } from 'react';
 import EditPartnerForm from './EditPartnerForm';
 
-function DeleteButton({ onClick }) {
-  return (
-    <button className="delete-button" onClick={onClick}>
-      Delete Partner
-    </button>
-  ); 
-}
-
-function EditButton({ onClick }) {
-  return (
-    <button className="edit-button" onClick={onClick}>
-      Edit Information
-    </button>
-  ); 
-}
-
-function PartnerTile({ partnerId, partnerData, onDelete, onEdit }) {
+function PartnerTile({ partnerData, onDelete, onEdit }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDeleteClick = () => {
     const confirmed = window.confirm('Are you sure you want to delete this partner?');
     if (confirmed) {
-      onDelete();
+      onDelete(partnerData.id);
     }
   };
 
@@ -31,22 +15,22 @@ function PartnerTile({ partnerId, partnerData, onDelete, onEdit }) {
     setIsEditing(true);
   };
 
-  const handleSaveClick = (updatedPartner) => {
-    onEdit(partnerId, updatedPartner);
+  const handleSave = (updatedPartner) => {
+    onEdit(updatedPartner);
     setIsEditing(false);
   };
 
-  const handleCancelClick = () => {
+  const handleCancel = () => {
     setIsEditing(false);
   };
 
   return (
     <div className="partner-tile">
       {isEditing ? (
-        <EditPartnerForm
-          partnerData={partnerData}
-          onSave={handleSaveClick}
-          onCancel={handleCancelClick}
+        <EditPartnerForm 
+          partnerData={partnerData} 
+          onSave={handleSave} 
+          onCancel={handleCancel} 
         />
       ) : (
         <>
@@ -59,11 +43,11 @@ function PartnerTile({ partnerId, partnerData, onDelete, onEdit }) {
           <div className='partner-status'>
             <strong>Status: </strong> {partnerData.active ? 'Active' : 'Inactive'}
           </div>
-          <div className='partner-delete'>
-            <DeleteButton onClick={handleDeleteClick} />
-          </div>
-          <div className='partner-edit'>
-            <EditButton onClick={handleEditClick}/>
+          <div className='partner-actions'>
+            <div className='form-row'>
+              <button className='delete-button' onClick={handleDeleteClick}>Delete</button>
+              <button className='edit-button' onClick={handleEditClick}>Edit</button>
+            </div>
           </div>
         </>
       )}
