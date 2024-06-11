@@ -37,13 +37,20 @@ function Dashboard() {
     setIsAddingPartner(!isAddingPartner);
   };
 
+  const cancelAddPartner = () => {
+    setIsAddingPartner(false);
+  };
+
   return (
     <div id="main-content">
       <div className='add-partner-info-btn-container'>
-        <button className='add-partner-info-btn' onClick={toggleAddPartnerPanel}>
-          {isAddingPartner ? 'Cancel' : 'Add Partner Info'}
-        </button>
-        {isAddingPartner && <UserAddition onAddPartner={addPartner} />}
+        {isAddingPartner ? (
+          <UserAddition onAddPartner={addPartner} onCancel={cancelAddPartner} />
+        ) : (
+          <button className='add-partner-info-btn' onClick={toggleAddPartnerPanel}>
+            Add Partner Info
+          </button>
+        )}
       </div>
       <PartnerList partners={partners} setPartners={setPartners} />
     </div>

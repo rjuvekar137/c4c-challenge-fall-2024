@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function UserAddition({ onAddPartner }) {
+function UserAddition({ onAddPartner, onCancel }) {
   const [newPartner, setNewPartner] = useState({
     name: '',
     thumbnailUrl: '',
@@ -72,8 +72,11 @@ function UserAddition({ onAddPartner }) {
           />
       </div>
       </div>
-      <button className='add-partner-info-btn' type='submit'>Add Partner</button>
-    </form>
+      <div className='form-row'>
+        <button className='save-changes-btn' type='submit'>Add Partner</button>
+        <button className='cancel-btn' type='button' onClick={onCancel}>Cancel</button>
+      </div>    
+      </form>
   );
 }
 

@@ -25,6 +25,7 @@ function EditPartnerForm({ partnerData, onSave, onCancel }) {
 
   return (
     <form onSubmit={handleSubmit} className='edit-partner-form'>
+      <div className='form-fields'>
       <div className='form-row'>
         <div className='form-group'>
           <label className='form-label'>Name:</label>
@@ -67,6 +68,7 @@ function EditPartnerForm({ partnerData, onSave, onCancel }) {
             onChange={handleCheckboxChange}
           />
         </div>
+      </div>
       </div>
       <div className='form-row'>
         <button className='save-changes-btn' type='submit'>Save Changes</button>
