@@ -14,12 +14,23 @@ function Dashboard() {
       .then(data => setPartners(data));
   }, []);
 
+
   const addPartner = (newPartner) => {
-    setPartners((prevPartners) => ({
-      ...prevPartners,
-      [newPartner.name]: newPartner
-    }));
-    setIsAddingPartner(false);
+    fetch(`http://localhost:4000/partners/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newPartner)
+    }).then(res => res.json())
+      .then(data => {
+        setPartners((prevPartners) => ({
+          ...prevPartners,
+          [data.id]: newPartner
+        }));
+        setIsAddingPartner(false);
+      })
+      .catch(error => alert(error));
   };
 
   const toggleAddPartnerPanel = () => {

@@ -11,7 +11,8 @@ const PartnerList = ({ partners, setPartners }) => {
         delete newPartners[id];
         return newPartners;
       });
-    });
+    })
+    .catch(error => alert(error));
   };
 
   const editPartner = (updatedPartner) => {
@@ -28,7 +29,8 @@ const PartnerList = ({ partners, setPartners }) => {
           ...prevPartners,
           [id]: data
         }));
-      });
+      })
+      .catch(error => alert(error));
   };
 
   return (

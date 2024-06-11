@@ -73,7 +73,7 @@ app.get('/', (req, res) => {
 // add a partner
 app.post('/partners', (req, res) => {
   const {thumbnailUrl, name, description, active} = req.body;
-  if (!name || !thumbnailUrl || !description || !active) {
+  if (!name || !thumbnailUrl || !description) {
     return res.status(400).send('Missing information for partner');
   }
 
@@ -82,6 +82,7 @@ app.post('/partners', (req, res) => {
   partners[id] = newPartner;
   writePartners()
   console.log("Added new partner: "+id)
+  newPartner["id"] = id;
   res.status(201).send(newPartner);
 });
 
@@ -106,7 +107,7 @@ app.put('/partners/:id', (req, res) => {
     return res.status(400).send('Partner not found: '+id);
   }
   const {thumbnailUrl, name, description, active} = req.body;
-  if (!name || !thumbnailUrl || !description || !active) {
+  if (!name || !thumbnailUrl || !description) {
     return res.status(400).send('Missing information for partner');
   }
   const newPartner = {thumbnailUrl, name, description, active};
