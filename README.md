@@ -13,7 +13,7 @@ If you don't have them already, you'll need to install Node.js/NPM and Git:
 
 1. Clone this repo on to your computer. You can do so with the [desktop app](https://desktop.github.com/), or in a terminal with the following:
 ```
-git clone https://github.com/huang0h/c4c-challenge-fall-2024.git
+git clone https://github.com/rjuvekar137/c4c-challenge-fall-2024.git
 ```
 2. In a terminal, run `npm install` **at the root of this project** to install the required packages
 3. Run `npm run dev` **at the root of this project** to start the app locally
@@ -36,4 +36,4 @@ From this project, I gained a better understanding of connecting the front end a
 
 One of the more difficult aspects of this project, as a result, was understanding how to connect the backend (specifically the data) to the front end. I found that it was easier to work on implementing the bonus feature of data persistance from the get go, as after creating the file to write the data to and creating the necessary API calls, the process became a lot less complicated. I ran into some issues with certain functionalities not working correctly, and this mainly stemmed from my code initially being disjointed and scattered through multiple components. 
 
-For additional bonus features I implemented, I added the ability to directly edit an organizations information. 
+For additional bonus features I implemented, I added the ability to directly edit an organizations information as well as ability to persist partner information. 
